@@ -1,11 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.core.exceptions import ObjectDoesNotExist
-from django.db.models import Q, F
-from store.models import Product
+from django.db.models import Value, F, Func, Count
+from django.db.models.functions import Concat
+from django.db import transaction
+from store.models import Customer, Product, Collection
+from tags.models import TaggedItem
 
 
 def say_hello(request):
-    query_set = Product.objects.all()[5:10]
+    Collection.objects.filter(pk=11).update(featured_product=1)
 
-    return render(request, 'hello.html', {'name': 'Farabi', 'products': list(query_set)})
+    return render(request, 'hello.html', {'name': 'Farabi'})
+ 
